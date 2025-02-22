@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Items Display</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 <body>
     <main>
         <!-- Profile Section -->
         <section class="profile-section">
             <div class="profile-avatar">
-                👤
+                <i class="bi bi-person-fill"></i>
             </div>
             <div class="profile-info">
                 <div class="profile-name">Sarah Johnson</div>
@@ -19,9 +21,8 @@
             </div>
         </section>
         <!-- Floating AI Chatbot Button -->
-<div class="chatbot-button">
-    <span>💬</span>
-</div>
+
+        <button class="chatbot-button" onclick="goChatbot()"><i class="bi bi-stars"></i></button> <!-- Home icon -->
 
 
         <!-- Streak Bar Section -->
@@ -71,12 +72,15 @@
         <section class="content-section">
             <div class="content-container" id="category1">
                 <div class="content-grid">
+                    <a href="{{ url_for('exercisepage', exercise="Finger Exercise", url = "hand_physio") }}">
                     <div class="content-item">
+                        
                         <div class="content-icon">🩺</div>
-                        <a href="{{ url_for('exercisepage', exercise="bicep_curl") }}">
-                          <div>Bird-Dog</div>
-                        </a>
+                          <div>Finger Exercise</div>
+                        
+                        
                       </div>
+                    </a>
                     <div class="content-item">
                         <div class="content-icon">🩺</div>
                         <div>Back Extension</div>
@@ -89,10 +93,12 @@
             </div>
             <div class="content-container" id="category2">
                 <div class="content-grid">
+                    <a href="{{ url_for('exercisepage', exercise="Bicep Curl", url = "bicep_curls") }}">
                     <div class="content-item">
                         <div class="content-icon">💪</div>
                         <div>Bicep Curl</div>
                     </div>
+                </a>
                     <div class="content-item">
                         <div class="content-icon">💪</div>
                         <div>Dead Lift</div>
@@ -179,7 +185,9 @@
                 });
             });
         });
-        
+        function goChatbot() {
+            window.location.href = "/chatbot"; // Change this to your home page URL
+        }
         
     </script>
 </body>

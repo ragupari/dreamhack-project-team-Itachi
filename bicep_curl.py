@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, Response, jsonify
+from flask import Blueprint, render_template, Response, jsonify, request
 import cv2
 import numpy as np
 import time
@@ -13,7 +13,7 @@ rep_count = 0  # To track repetitions
 feedback = "Let's go"  # To store feedback message
 
 # Initialize the webcam
-cap = cv2.VideoCapture(0)  # Capture from the default webcam
+ # Capture from the default webcam
 
 def calculate_angle(a, b, c):
     """Calculates the angle between three points."""
@@ -29,6 +29,7 @@ def calculate_angle(a, b, c):
     return np.degrees(angle)
 
 def process_bicep_curls():
+    cap = cv2.VideoCapture(0) 
     """Main function to track bicep curls and provide feedback."""
     global rep_count
     global feedback
@@ -99,6 +100,20 @@ def process_bicep_curls():
 @bicep_curls.route("/get_reps")
 def get_reps():
     return jsonify({"reps": rep_count})
+
+@bicep_curls.route("/start")
+def reset():
+    global rep_count, feedback
+    rep_count = 0  # Reset to 0
+    feedback = "Let's go"
+    return Response("Reset successful")
+
+@bicep_curls.route("/stop")
+def stop():
+    global cap
+    cap.release()
+    return Response("caps released")
+
 
 # Route to get the current feedback message
 @bicep_curls.route("/get_feedback")

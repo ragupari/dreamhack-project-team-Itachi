@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Assistant</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- Marked.js for Markdown rendering -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+
+    
+    <script>
+        async function sendMessage() {
+            let userInput = document.getElementById("user-input").value;
+            let chatBox = document.getElementById("chat-box");
+
+            if (userInput.trim() === "") return;
+
+            chatBox.innerHTML += `<div class="message user"><strong>You:</strong> ${userInput}</div>`;
+            document.getElementById("user-input").value = "";
+
+            let response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userInput, messages: [] })
+            });
+
+            let data = await response.json();
+            
+            // Convert Markdown response to HTML and sanitize it
+            let formattedResponse = marked.parse(data.response);
+            
+            chatBox.innerHTML += `<div class="message bot"><strong>Bot:</strong> ${formattedResponse}</div>`;
+
+            chatBox.scrollTop = chatBox.scrollHeight;  // Auto-scroll to latest message
+        }
+    </script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 20px;
+        }
+        #chat-container { 
+            width: 100%; 
+            max-width: 80%; 
+            margin: auto; 
+            background: #fff; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        #chat-box { 
+            border: 1px solid #ddd; 
+            padding: 10px; 
+            height: 400px; 
+            overflow-y: auto; 
+            text-align: left; 
+            border-radius: 8px; 
+            background: #fff;
+        }
+        .message { 
+            padding: 8px 12px; 
+            margin: 5px 0; 
+            border-radius: 6px;
+        }
+        .user { background: #dcf8c6; text-align: right; }
+        .bot { background: #e3e3e3; text-align: left; }
+        #input-container { 
+            display: flex; 
+            margin-top: 10px; 
+        }
+        #user-input { 
+            flex: 1; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            font-size: 16px;
+        }
+        button { 
+            padding: 10px 15px; 
+            border: none; 
+            background: #007bff; 
+            color: white; 
+            border-radius: 5px; 
+            margin-left: 5px; 
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .floating-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            border: 1px solid #8fb6f5;
+            background-color: #8fb6f5;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-btn:hover {
+            background-color: #0056b3;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Chat with the Assistant</h1>
+    <button class="floating-btn" onclick="goHome()"><i class="bi bi-house-door-fill"></i></button> <!-- Home icon -->
+    <div id="chat-container">
+        <div id="chat-box">
+            <div class="message bot"><strong>Bot:</strong> Hello! How can I assist you today?</div>
+        </div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function goHome() {
+            window.location.href = "/"; // Change this to your home page URL
+        }
+    </script>
+</body>
+</html>

@@ -15,10 +15,14 @@
             font-family: Arial, sans-serif;
             height: 100vh;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
         }
 
         .container {
-            display: flex;
+            display: none; /* Initially hidden */
             height: 100vh;
             width: 100%;
         }
@@ -37,7 +41,7 @@
 
         .stats-section {
             flex: 1;
-            background-color: #f5f5f5;
+            background-color: #fff;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -98,24 +102,6 @@
             transition: background-color 0.2s;
         }
 
-        .button-primary {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .button-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .button-secondary {
-            background-color: #e9ecef;
-            color: #333;
-        }
-
-        .button-secondary:hover {
-            background-color: #dde2e6;
-        }
-
         .button-danger {
             background-color: #dc3545;
             color: white;
@@ -123,6 +109,33 @@
 
         .button-danger:hover {
             background-color: #c82333;
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .start-button:hover {
+            background-color: #0056b3;
+        }
+
+        .countdown {
+            font-size: 10rem;
+            font-weight: bold;
+            color: #007bff;
+            display: none;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
@@ -138,9 +151,47 @@
                 flex: 1;
             }
         }
+        #live-stream {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            max-height: 400px;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        .start-button {
+            color: black;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #8fb6f5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .start-button:hover {
+            background-color:rgb(102, 131, 177);
+        }
     </style>
 </head>
 <body>
+
+    <!-- Start Screen -->
+    <div class="start-screen">
+        Postion yourself.
+        <video id="live-stream" autoplay></video>
+
+        <button class="start-button" onclick="startCountdown()">Start</button>
+        <div id="countdown-display"></div>
+    </div>
+
+    <!-- Countdown Screen -->
+    <div class="countdown" id="countdown-text">3</div>
+
+    <!-- Main Content -->
     <div class="container">
         <div class="image-section">
             <img 
@@ -164,9 +215,6 @@
                 <div class="stats-box">
                     <div class="timer" id="timer">00:00</div>
                 </div>
-                <button class="button button-primary" onclick="startTimer()">
-                    Start Timer
-                </button>
                 <button class="button button-danger" onclick="endTimer()">
                     End Timer
                 </button>
@@ -190,41 +238,88 @@
             document.getElementById('timer').innerText = formatTime(seconds);
         }
 
+        function startCountdown() {
+            fetch('/{{url}}/start', {  // Replace with your actual API endpoint
+                method: 'GET'
+            }).catch(error => console.error('Error:', error));
+            
+            document.querySelector('.start-screen').style.display = 'none';
+            let countdownText = document.getElementById("countdown-text");
+            countdownText.style.display = "block";
+
+            let count = 3;
+            let countdownInterval = setInterval(() => {
+                if (count > 1) {
+                    count--;
+                    countdownText.innerText = count;
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownText.style.display = "none";
+                    startApp();
+                }
+            }, 1000);
+        }
+
+        function startApp() {
+            document.querySelector('.container').style.display = 'flex';
+            startTimer();
+        }
+
         function startTimer() {
             if (!isTimerRunning) {
                 isTimerRunning = true;
-                // Start the timer interval
                 timerInterval = setInterval(function() {
                     seconds++;
                     updateTimerDisplay();
                 }, 1000);
 
-                // Start fetching rep count and feedback
                 fetchInterval = setInterval(fetchReps, 1000);
             }
         }
 
+        
         function endTimer() {
-            if (isTimerRunning) {
-                clearInterval(timerInterval); // Stop the timer
-                clearInterval(fetchInterval); // Stop fetching data
-                isTimerRunning = false;
+            fetch('/{{url}}/stop', {  // Replace with your actual API endpoint
+                method: 'GET'
+            }).catch(error => console.error('Error:', error));
+            
+            window.location.href = '/'; 
             }
-        }
+
+        
+        
 
         function fetchReps() {
-            fetch('/bicep_curls/get_reps')
+            fetch('/{{url}}/get_reps')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("rep-count").innerText = "Reps: " + data.reps;
                 });
-            fetch('/bicep_curls/get_feedback')
+            fetch('/{{url}}/get_feedback')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("rep-feedback").innerText = data.feedback;
                 });
         }
+        // Select the video element
+const video = document.getElementById('live-stream');
+
+// Check if the browser supports the MediaDevices API
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Request access to the user's camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then((stream) => {
+        // Set the video source to the camera stream
+        video.srcObject = stream;
+    })
+    .catch((error) => {
+        console.error("Error accessing the camera: ", error);
+    });
+} else {
+    console.log("getUserMedia is not supported in this browser.");
+}
 
     </script>
+
 </body>
 </html>
