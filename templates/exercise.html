@@ -144,7 +144,7 @@
     <div class="container">
         <div class="image-section">
             <img 
-                src="{{ url_for('video_feed') }}" 
+                src="{{ url_for('bicep_curls.video_feed') }}" 
                 alt="Exercise Demonstration" 
                 class="main-image"
             >
@@ -157,7 +157,7 @@
                 <div id="rep-count">Reps: 0</div>
             </div>
             <div class="stats-box">
-                <div class="feedback" id="rep-feedback">Reps: 0</div>
+                <div class="feedback" id="rep-feedback">Let's Go!</div>
             </div>
 
             <div class="button-container">
@@ -213,12 +213,12 @@
         }
 
         function fetchReps() {
-            fetch('/get_reps')
+            fetch('/bicep_curls/get_reps')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("rep-count").innerText = "Reps: " + data.reps;
                 });
-            fetch('/get_feedback')
+            fetch('/bicep_curls/get_feedback')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("rep-feedback").innerText = data.feedback;
