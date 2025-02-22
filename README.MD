@@ -5,6 +5,9 @@ Web application that uses live camera feeds to guide users through doctor-recomm
 For testing purpose, use Exercises and go to Bicep Curl. That's our working model
 Try out our AI chat bot asking questions related to your physitherapy or exercise doubts
 
+Since we had the time constraints, we did a physiotherapy model and couldn't able to add it to our system.
+You can seperately check that by running `physio.py`
+
 ## Features
 - **Live Camera Guidance**: Provides real-time instructions for doctor-recommended psycho exercises and yoga through live camera feeds.
 - **AI-Powered Chatbot**: Offers personalized suggestions and answers user queries related to mental health and exercises.

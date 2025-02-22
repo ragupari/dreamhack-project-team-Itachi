@@ -173,7 +173,7 @@
         }
 
         .start-button:hover {
-            background-color:rgb(102, 131, 177);
+            background-color: rgb(102, 131, 177);
         }
     </style>
 </head>
@@ -181,7 +181,7 @@
 
     <!-- Start Screen -->
     <div class="start-screen">
-        Postion yourself.
+        Position yourself.
         <video id="live-stream" autoplay></video>
 
         <button class="start-button" onclick="startCountdown()">Start</button>
@@ -227,6 +227,7 @@
         let fetchInterval;
         let seconds = 0;
         let isTimerRunning = false;
+        let lastFeedback = '';  // Variable to store the last spoken feedback
 
         function formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
@@ -277,17 +278,13 @@
             }
         }
 
-        
         function endTimer() {
             fetch('/{{url}}/stop', {  // Replace with your actual API endpoint
                 method: 'GET'
             }).catch(error => console.error('Error:', error));
             
             window.location.href = '/'; 
-            }
-
-        
-        
+        }
 
         function fetchReps() {
             fetch('/{{url}}/get_reps')
@@ -295,30 +292,44 @@
                 .then(data => {
                     document.getElementById("rep-count").innerText = "Reps: " + data.reps;
                 });
+
             fetch('/{{url}}/get_feedback')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("rep-feedback").innerText = data.feedback;
+                    const feedbackText = data.feedback;
+                    document.getElementById("rep-feedback").innerText = feedbackText;
+
+                    // Only read aloud if the feedback is different from the last one spoken
+                    if (feedbackText !== lastFeedback) {
+                        readFeedback(feedbackText);  // Read the feedback aloud
+                        lastFeedback = feedbackText;  // Update the last feedback spoken
+                    }
                 });
         }
+
+        // Function to read feedback aloud using SpeechSynthesis API
+        function readFeedback(feedbackText) {
+            const speech = new SpeechSynthesisUtterance(feedbackText);  // Create the speech utterance
+            window.speechSynthesis.speak(speech);  // Speak the text
+        }
+
         // Select the video element
-const video = document.getElementById('live-stream');
+        const video = document.getElementById('live-stream');
 
-// Check if the browser supports the MediaDevices API
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    // Request access to the user's camera
-    navigator.mediaDevices.getUserMedia({ video: true })
-    .then((stream) => {
-        // Set the video source to the camera stream
-        video.srcObject = stream;
-    })
-    .catch((error) => {
-        console.error("Error accessing the camera: ", error);
-    });
-} else {
-    console.log("getUserMedia is not supported in this browser.");
-}
-
+        // Check if the browser supports the MediaDevices API
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Request access to the user's camera
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                // Set the video source to the camera stream
+                video.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error("Error accessing the camera: ", error);
+            });
+        } else {
+            console.log("getUserMedia is not supported in this browser.");
+        }
     </script>
 
 </body>
