@@ -1,0 +1,323 @@
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #f5f5f5;
+    }
+
+    .profile-section {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .profile-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #6b7280;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    .profile-welcome {
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+    .streak-container {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .streak-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .streak-count {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+
+    .streak-label {
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+    .streak-flame {
+        background-color: #fee2e2;
+        color: #ef4444;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .days-container {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .day-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .day-circle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border: 2px solid #e5e7eb;
+        background-color: white;
+        position: relative;
+    }
+
+    .day-circle.completed {
+        background-color: #22c55e;
+        border-color: #22c55e;
+        color: white;
+    }
+
+    .day-circle.completed::after {
+        content: "✓";
+        position: absolute;
+        font-size: 0.75rem;
+    }
+
+    .day-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+        text-transform: uppercase;
+    }
+
+    .scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 1rem 0;
+    }
+    .scroll-container {
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centers the content */
+        padding: 1rem 0;
+    }
+    
+    .scroll-content {
+        display: flex;
+        gap: 1rem;
+        padding: 0.5rem;
+        justify-content: center; /* Ensures the items stay centered */
+    }
+    
+
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scroll-content {
+        display: flex;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .scroll-item {
+        flex: 0 0 auto;
+        width: 200px;
+        height: 120px;
+        background-color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #4b5563;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: 2px solid transparent;
+    }
+
+    .scroll-item:hover {
+        transform: translateY(-2px);
+    }
+    a {
+        text-decoration: none;
+        color: inherit; /* Optional: Keeps the text color same as surrounding text */
+      }
+    .scroll-item.selected {
+        border-color: #3b82f6;
+        background-color: #f0f9ff;
+        color: #3b82f6;
+    }
+    .scroll-item:nth-child(1) { /* Adjust index if needed */
+        background-image: url('https://hssh.health/wp-content/uploads/2021/10/AdobeStock_257007919.jpeg'); /* Replace with your image URL */
+        background-size: cover; /* Ensures the image covers the entire item */
+        background-position: center; /* Centers the image */
+        color:rgb(49, 56, 66);
+        font-weight: bold;
+    }
+    .scroll-item:nth-child(2) { /* Adjust index if needed */
+        background-image: url('https://hips.hearstapps.com/hmg-prod/images/female-athlete-practicing-side-plank-at-home-royalty-free-image-1632260664.jpg?crop=0.668xw:1.00xh;0.102xw,0&resize=640:*'); /* Replace with your image URL */
+        background-size: cover; /* Ensures the image covers the entire item */
+        background-position: center; /* Centers the image */
+        color:rgb(49, 56, 66);
+        font-weight: bold;
+    }
+    .scroll-item:nth-child(3) { /* Adjust index if needed */
+        background-image: url('https://domf5oio6qrcr.cloudfront.net/medialibrary/7394/cde04729-98d2-4776-b203-a6455470dfb6.jpg'); /* Replace with your image URL */
+        background-size: cover; /* Ensures the image covers the entire item */
+        background-position: center; /* Centers the image */
+        color:rgb(49, 56, 66);
+        font-weight: bold;
+    }
+    
+    .content-section {
+        margin-top: 2rem;
+    }
+
+    .content-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: none;
+    }
+
+    .content-container.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .content-item {
+        background-color: #f8fafc;
+        border-radius: 8px;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .content-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background-color: #e0e7ff;
+        color: #4f46e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 640px) {
+        body {
+            padding: 1rem;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            font-size: 1.25rem;
+        }
+
+        .profile-name {
+            font-size: 1.125rem;
+        }
+
+        .scroll-item {
+            width: 160px;
+            height: 100px;
+            font-size: 1rem;
+        }
+    }
+
+    /* Floating Chatbot Button */
+.chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border: 1px solid #8fb6f5;
+    background-color: #8fb6f5;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.chatbot-button:hover {
+    background-color: #2563eb;
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Items Display</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main>
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <div class="profile-avatar">
+                👤
+            </div>
+            <div class="profile-info">
+                <div class="profile-name">Sarah Johnson</div>
+                <div class="profile-welcome">Welcome back!</div>
+            </div>
+        </section>
+        <!-- Floating AI Chatbot Button -->
+<div class="chatbot-button">
+    <span>💬</span>
+</div>
+
+
+        <!-- Streak Bar Section -->
+        <section class="streak-container">
+            <div class="streak-header">
+                <div class="streak-flame">🔥</div>
+                <div>
+                    <div class="streak-count">4 Days</div>
+                    <div class="streak-label">Current Streak</div>
+                </div>
+            </div>
+
+            <div class="days-container">
+                <div class="day-item">
+                    <div class="day-circle completed">M</div>
+                    <span class="day-label">Mon</span>
+                </div>
+                <div class="day-item">
+                    <div class="day-circle completed">T</div>
+                    <span class="day-label">Tue</span>
+                </div>
+                <div class="day-item">
+                    <div class="day-circle completed">W</div>
+                    <span class="day-label">Wed</span>
+                </div>
+                <div class="day-item">
+                    <div class="day-circle completed">T</div>
+                    <span class="day-label">Thu</span>
+                </div>
+                <div class="day-item">
+                    <div class="day-circle">F</div>
+                    <span class="day-label">Fri</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horizontal Scroll Section -->
+        <section class="scroll-container">
+            <div class="scroll-content">
+                <div class="scroll-item" data-category="category1">Physio Therapy</div>
+                <div class="scroll-item" data-category="category2"> Exercises</div>
+                <div class="scroll-item" data-category="category3">Yoga</div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="content-section">
+            <div class="content-container" id="category1">
+                <div class="content-grid">
+                    <div class="content-item">
+                        <div class="content-icon">🩺</div>
+                        <a href="{{ url_for('exercisepage', exercise="bicep_curl") }}">
+                          <div>Bird-Dog</div>
+                        </a>
+                      </div>
+                    <div class="content-item">
+                        <div class="content-icon">🩺</div>
+                        <div>Back Extension</div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">🩺</div>
+                        <div>Cat-Cow Extension</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-container" id="category2">
+                <div class="content-grid">
+                    <div class="content-item">
+                        <div class="content-icon">💪</div>
+                        <div>Bicep Curl</div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">💪</div>
+                        <div>Dead Lift</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-container" id="category3">
+                <div class="content-grid">
+                    <div class="content-item">
+                        <div class="content-icon">🧘</div>
+                        <div>Ardhachakrasana</div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">🧘</div>
+                        <div>Tadasana</div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">🧘</div>
+                        <div>Virabhadrasana</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-container" id="category4">
+                <div class="content-grid">
+                    <div class="content-item">
+                        <div class="content-icon">📚</div>
+                        <div>Item 4.1</div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">✏️</div>
+                        <div>Item 4.2</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-container" id="category5">
+                <div class="content-grid">
+                    <div class="content-item">
+                        <div class="content-icon">🎵</div>
+                        <div>Item 5.1</div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">🎹</div>
+                        <div>Item 5.2</div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">🎸</div>
+                        <div>Item 5.3</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollItems = document.querySelectorAll('.scroll-item');
+            const contentContainers = document.querySelectorAll('.content-container');
+
+            // Select first item by default
+            if (scrollItems.length > 0) {
+                scrollItems[0].classList.add('selected');
+                document.getElementById(scrollItems[0].dataset.category).classList.add('active');
+            }
+
+            scrollItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove selected class from all items
+                    scrollItems.forEach(si => si.classList.remove('selected'));
+                    
+                    // Add selected class to clicked item
+                    this.classList.add('selected');
+
+                    // Hide all content containers
+                    contentContainers.forEach(container => {
+                        container.classList.remove('active');
+                    });
+
+                    // Show the corresponding content container
+                    const categoryId = this.dataset.category;
+                    const contentContainer = document.getElementById(categoryId);
+                    if (contentContainer) {
+                        contentContainer.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        
+    </script>
+</body>
+</html>
