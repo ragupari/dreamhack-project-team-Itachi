@@ -1,5 +1,6 @@
 ## Team Itachi - Web Application
 Web application that uses live camera feeds to guide users through doctor-recommended physio exercises and yoga. Our primary focus is to encourage the users to follow exercises without daily doctor consultations. The app includes an AI-powered chatbot to provide personalized suggestions and answer user queries. Additionally, users can upload exercise videos for feedback. This innovative platform offers a time-saving solution to support mental health effectively and conveniently.
+![Demo](/demo1.gif)
 
 ![Demo](demo2.png)
 
