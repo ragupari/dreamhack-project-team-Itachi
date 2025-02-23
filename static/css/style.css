@@ -40,7 +40,7 @@
     }
 
     .profile-name {
-        font-size: 1.25rem;
+        font-size: 2.1rem;
         font-weight: 600;
         color: #1a1a1a;
     }
@@ -251,6 +251,14 @@
         align-items: center;
         gap: 1rem;
     }
+    .content-item2 {
+        background-color: #f6c2c2;
+        border-radius: 8px;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
 
     .content-icon {
         width: 40px;
@@ -302,8 +310,8 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    border: 1px solid #8fb6f5;
-    background-color: #8fb6f5;
+    border: 1px solid #2563eb;
+    background-color: #2563eb;
     color: white;
     border-radius: 50%;
     width: 60px;
@@ -319,5 +327,5 @@
 }
 
 .chatbot-button:hover {
-    background-color: #2563eb;
+    background-color:#8fb6f5;
 }

@@ -195,7 +195,8 @@
     <div class="container">
         <div class="image-section">
             <img 
-                src="{{ url_for('bicep_curls.video_feed') }}" 
+            src="{{ url_for(url ~ '.video_feed') }}"
+
                 alt="Exercise Demonstration" 
                 class="main-image"
             >
@@ -307,11 +308,6 @@
                 });
         }
 
-        // Function to read feedback aloud using SpeechSynthesis API
-        function readFeedback(feedbackText) {
-            const speech = new SpeechSynthesisUtterance(feedbackText);  // Create the speech utterance
-            window.speechSynthesis.speak(speech);  // Speak the text
-        }
 
         // Select the video element
         const video = document.getElementById('live-stream');
