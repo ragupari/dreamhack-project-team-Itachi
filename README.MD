@@ -53,3 +53,10 @@ You can seperately check that by running `physio.py`
 
 ## Issues and resolution
 - **Issue with camera feed**: If you encounter any issues with camera try changing `cap = cv2.VideoCapture(0)` in `bicep_curl.py` file
+
+
+## Contributors
+- [Parishith Ragumar](https://github.com/ragupari)
+- [Birunthaban Rajendram](https://github.com/birunthabanr)
+- [Kajaluxan Sivakumaran](http://github.com/Kajaluxan)
+- [Varun Poobalaraja](https://github.com/VarunRaj004)
